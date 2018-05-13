@@ -1,0 +1,6 @@
+[package]
+name = "falcon_server"
+version = "0.1.0"
+authors = ["Mackenzie Clark <mackenzie.a.z.c@gmail.com>"]
+
+[dependencies]
