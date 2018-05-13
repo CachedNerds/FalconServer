@@ -34,5 +34,10 @@ fn leave(id: u32) ->  String {
 }
 
 fn main() {
-    rocket::ignite().mount("/", routes![index]).launch();
+    rocket::ignite().mount("/", routes![index,
+    ready,
+    health,
+    list,
+    join,
+    leave]).launch();
 }
