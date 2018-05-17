@@ -3,41 +3,31 @@
 
 extern crate rocket;
 
-#[get("/")]
-fn index() -> &'static str {
-    "Falcon Server"
-}
+pub mod health;
+pub mod index;
+pub mod join;
+pub mod leave;
+pub mod list;
+pub mod persist;
+pub mod ready;
+pub mod startup;
 
-#[get("/ready")]
-fn ready() -> &'static str {
-    "ready"
-}
-
-#[get("/health")]
-fn health() -> &'static str {
-    "healthy"
-}
-
-#[get("/list")]
-fn list() -> &'static str {
-    ""
-}
-
-#[post("/join/<id>")]
-fn join(id: u32) ->  String {
-    format!("{}", id)
-}
-
-#[post("/leave/<id>")]
-fn leave(id: u32) ->  String {
-    format!("{}", id)
-}
+use startup::startup;
 
 fn main() {
-    rocket::ignite().mount("/", routes![index,
-    ready,
-    health,
-    list,
-    join,
-    leave]).launch();
+    let _ = startup();
+
+    rocket::ignite()
+        .mount(
+            "/",
+            routes![
+                index::index,
+                ready::ready,
+                health::health,
+                list::list,
+                join::join,
+                leave::leave
+            ],
+        )
+        .launch();
 }
